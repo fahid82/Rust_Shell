@@ -1,4 +1,8 @@
+mod errors;
 mod utilities;
+
+use crate::errors::CustomError;
+use crate::utilities::print_error;
 
 #[allow(unused_imports)]
 use std::io::{self, Write};
@@ -12,7 +16,10 @@ pub fn run() -> Result<()> {
     io::stdout().flush().unwrap();
 
     let user_input: String = get_user_input()?;
-    println!("User input: ${user_input}");
+
+    let error: CustomError = CustomError::CommandNotFound(user_input);
+
+    print_error(error);
 
     Ok(())
 }
