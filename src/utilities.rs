@@ -1,6 +1,8 @@
+use crate::commands::Command;
 use anyhow::{Context, Result};
 use std::fmt::Display;
-use std::io::stdin;
+use std::io::{self, Write, stdin};
+use std::process;
 
 pub fn get_user_input() -> Result<String> {
     let mut user_input: String = String::new();
@@ -12,4 +14,19 @@ pub fn get_user_input() -> Result<String> {
 
 pub fn print_error(message: impl Display) {
     eprintln!("{message}");
+}
+
+pub fn print_prompt() {
+    print!("$ ");
+    io::stdout().flush().unwrap();
+}
+
+pub fn get_command() -> Result<Command> {
+    let user_input = get_user_input()?;
+    let command = Command::from(user_input.as_str());
+    Ok(command)
+}
+
+pub fn exit(code: i32) {
+    process::exit(code);
 }

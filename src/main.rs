@@ -1,12 +1,11 @@
-use rust_shell::run;
-use std::process;
+use rust_shell::{run, utilities::exit};
 
 fn main() {
     match run() {
-        Ok(_) => process::exit(0),
+        Ok(_) => exit(0),
         Err(error) => {
             eprintln!("Error: {error}");
-            process::exit(1)
+            exit(1)
         }
     }
 }
