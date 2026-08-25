@@ -12,14 +12,13 @@ use anyhow::Result;
 use crate::utilities::get_user_input;
 
 pub fn run() -> Result<()> {
-    print!("$ ");
-    io::stdout().flush().unwrap();
-
-    let user_input: String = get_user_input()?;
-
-    let error: CustomError = CustomError::CommandNotFound(user_input);
-
-    print_error(error);
-
+    loop {
+        print!("$ ");
+        io::stdout().flush().unwrap();
+        let user_input: String = get_user_input()?;
+        let error: CustomError = CustomError::CommandNotFound(user_input);
+        print_error(error);
+    }
+    #[allow(unreachable_code)]
     Ok(())
 }
