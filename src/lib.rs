@@ -1,4 +1,5 @@
 mod commands;
+mod echo;
 mod errors;
 pub mod utilities;
 
@@ -9,6 +10,7 @@ use anyhow::{Context, Result};
 
 use crate::{
     commands::Command,
+    echo::echo,
     errors::CustomError,
     utilities::{get_command, print_error, print_prompt},
 };
@@ -19,6 +21,7 @@ pub fn run() -> Result<()> {
         let command = get_command().context("Getting command")?;
 
         match command {
+            Command::Echo(command) => echo(command),
             Command::Exit => break,
             Command::NotFound(command) => print_error(CustomError::CommandNotFound(command)),
         }
