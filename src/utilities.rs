@@ -23,8 +23,8 @@ pub fn print_prompt() {
 
 pub fn get_command() -> Result<Command> {
     let user_input = get_user_input()?;
-    let (command_input, args) = parse_input(user_input);
-    let command = Command::from((command_input, args));
+    let command_and_args = parse_input(user_input);
+    let command = Command::from(command_and_args);
     Ok(command)
 }
 
